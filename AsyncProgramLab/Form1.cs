@@ -42,8 +42,8 @@ namespace AsyncProgramLab
             var file1 = openFileDialog1.FileName;
             var file2 = openFileDialog2.FileName;
 
-            var wordTask1 = ReadBook(file1);
-            var wordTask2 = ReadBook(file2);
+            var wordTask1 = ReadBook(file1, listBox1);
+            var wordTask2 = ReadBook(file2, listBox2);
 
             task1.Add(wordTask1);
             task2.Add(wordTask2);
@@ -52,7 +52,7 @@ namespace AsyncProgramLab
             await Task.WhenAll(task2);
         }
 
-        private async Task ReadBook(string filename)
+        private async Task ReadBook(string filename, ListBox targetListBox)
         {
             var lines = await File.ReadAllLinesAsync(filename);
 
@@ -85,7 +85,7 @@ namespace AsyncProgramLab
 
             foreach (var word in top10)
             {
-                listBox1.Items.Add(word.Key + " - " + word.Value);
+                targetListBox.Items.Add(word.Key + " - " + word.Value);
             }
         }
     }
